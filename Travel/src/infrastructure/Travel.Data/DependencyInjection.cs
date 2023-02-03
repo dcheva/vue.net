@@ -6,18 +6,18 @@ using Travel.Data.Contexts;
 
 namespace Travel.Data
 {
-    public static class DependencyInjection
+  public static class DependencyInjection
+  {
+    public static IServiceCollection AddInfrastructureData(this IServiceCollection services)
     {
-        public static IServiceCollection AddInfrastructureData(this IServiceCollection services)
-        {
+   
 
+      services.AddDbContext<ApplicationDbContext>(options => options
+        .UseSqlite("Data Source=TravelTourDatabase.sqlite3"));
 
-            services.AddDbContext<ApplicationDbContext>(options => options
-              .UseSqlite("Data Source=TravelTourDatabase.sqlite3"));
+      services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
-            return services;
-        }
+      return services;
     }
+  }
 }

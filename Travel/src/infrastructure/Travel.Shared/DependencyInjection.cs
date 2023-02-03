@@ -7,16 +7,16 @@ using Travel.Shared.Services;
 
 namespace Travel.Shared
 {
-    public static class DependencyInjection
+  public static class DependencyInjection
+  {
+    public static IServiceCollection AddInfrastructureShared(this IServiceCollection services, IConfiguration config)
     {
-        public static IServiceCollection AddInfrastructureShared(this IServiceCollection services, IConfiguration config)
-        {
-            services.Configure<MailSettings>(config.GetSection("MailSettings"));
-            services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<IEmailService, EmailService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+      services.Configure<MailSettings>(config.GetSection("MailSettings"));
+      services.AddTransient<IDateTime, DateTimeService>();
+      services.AddTransient<IEmailService, EmailService>();
+      services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
-            return services;
-        }
+      return services;
     }
+  }
 }
