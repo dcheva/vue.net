@@ -7,7 +7,7 @@ using Travel.Data.Contexts;
 
 namespace Travel.Data.Migrations
 {
-    [DbContext(typeof(TravelDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20201025202954_InitialCreate")]
     partial class InitialCreate
     {
