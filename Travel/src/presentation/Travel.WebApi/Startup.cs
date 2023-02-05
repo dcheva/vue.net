@@ -9,7 +9,10 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Travel.Application;
 using Travel.Data;
+using Travel.Identity;
+using Travel.Identity.Helpers;
 using Travel.Shared;
+using Travel.WebApi.Extensions;
 using Travel.WebApi.Filters;
 using Travel.WebApi.Helpers;
 
@@ -27,38 +30,24 @@ namespace Travel.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication();
-            services.AddInfrastructureData();
+            services.AddApplication(Configuration);
+            services.AddInfrastructureData(Configuration);
             services.AddInfrastructureShared(Configuration);
+            services.AddInfrastructureIdentity(Configuration);
 
             services.AddHttpContextAccessor();
-
             services.AddControllers();
-
             services.AddControllersWithViews(options =>
                 options.Filters.Add(new ApiExceptionFilter()));
             services.Configure<ApiBehaviorOptions>(options =>
                 options.SuppressModelStateInvalidFilter = true
             );
 
-            services.AddSwaggerGen(c =>
-            {
-                c.OperationFilter<SwaggerDefaultValues>();
-            });
+            services.AddApiVersioningExtension();
+            services.AddVersionedApiExplorerExtension();
+            services.AddSwaggerGenExtension();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-
-            services.AddApiVersioning(config =>
-            {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
-            });
-
-            services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,19 +56,12 @@ namespace Travel.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    foreach (var description in provider.ApiVersionDescriptions)
-                    {
-                        c.SwaggerEndpoint(
-                            $"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    }
-                });
+                app.UseSwaggerExtension(provider);
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

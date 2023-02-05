@@ -1,11 +1,11 @@
-using System;
-using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Formatting.Compact;
+using System;
+using System.Reflection;
 
 namespace Travel.WebApi
 {
@@ -13,7 +13,6 @@ namespace Travel.WebApi
     {
         public static int Main(string[] args)
         {
-
             var name = Assembly.GetExecutingAssembly().GetName();
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
