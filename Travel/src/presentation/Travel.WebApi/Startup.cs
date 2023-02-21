@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,9 +9,12 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Travel.Application;
 using Travel.Data;
+using Travel.Identity;
+using Travel.Identity.Helpers;
 using Travel.Shared;
-using Travel.WebApi.Filters;
+using Travel.WebApi.Extensions;
 using Travel.WebApi.Helpers;
+using VueCliMiddleware;
 
 namespace Travel.WebApi
 {
@@ -27,38 +30,27 @@ namespace Travel.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication();
-            services.AddInfrastructureData();
+            services.AddApplication(Configuration);
+            services.AddInfrastructureData(Configuration);
             services.AddInfrastructureShared(Configuration);
+            services.AddInfrastructureIdentity(Configuration);
 
             services.AddHttpContextAccessor();
-
             services.AddControllers();
 
-            services.AddControllersWithViews(options =>
-                options.Filters.Add(new ApiExceptionFilter()));
-            services.Configure<ApiBehaviorOptions>(options =>
-                options.SuppressModelStateInvalidFilter = true
-            );
-
-            services.AddSwaggerGen(c =>
-            {
-                c.OperationFilter<SwaggerDefaultValues>();
-            });
+            services.AddApiVersioningExtension();
+            services.AddVersionedApiExplorerExtension();
+            services.AddSwaggerGenExtension();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
-            services.AddApiVersioning(config =>
+            // NOTE: PRODUCTION Ensure this is the same path that is specified in your webpack output
+            services.AddSpaStaticFiles(configuration =>
             {
-                config.DefaultApiVersion = new ApiVersion(1, 0);
-                config.AssumeDefaultVersionWhenUnspecified = true;
-                config.ReportApiVersions = true;
+                configuration.RootPath = "../vue-app/dist";
             });
 
-            services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-            });
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,23 +59,40 @@ namespace Travel.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    foreach (var description in provider.ApiVersionDescriptions)
-                    {
-                        c.SwaggerEndpoint(
-                            $"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    }
-                });
+                app.UseSwaggerExtension(provider);
             }
 
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+
+            app.UseCors(b =>
+            {
+                b.AllowAnyOrigin();
+                b.AllowAnyHeader();
+                b.AllowAnyMethod();
+            });
+
             app.UseHttpsRedirection();
+
             app.UseRouting();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "../vue-app";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseVueCli(npmScript: "serve");
+                }
             });
         }
     }
