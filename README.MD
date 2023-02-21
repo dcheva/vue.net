@@ -37,11 +37,17 @@ If you see an error saying Error: Unknown argument: openssl-legacy-provider, the
 #### Depending on your terminal, run one of the commands below:
 
 ##### macOS, Linux and Windows Git Bash
+```
 export NODE_OPTIONS=--openssl-legacy-provider
+```
 
 ##### Windows Command Prompt:
+```
 set NODE_OPTIONS=--openssl-legacy-provider
+```
 
 ##### Windows PowerShell:
+```
 $env:NODE_OPTIONS="--openssl-legacy-provider"
+```
 Then run your build command
