@@ -2,8 +2,8 @@
 
 ![Tree Image](tree.png)
 
-### fixes and notes
-#### Node error:0308010C:digital envelope routines::unsupported
+## fixes and notes
+### Node error:0308010C:digital envelope routines::unsupported
 
 	When running JavaScript applications with Node, you might see the following error:
 	Error: error:0308010C:digital envelope routines::unsupported
@@ -34,20 +34,21 @@ You can add the flag to enable these legacy algorithms. Here are some examples f
 
 If you see an error saying Error: Unknown argument: openssl-legacy-provider, then you can set the NODE_OPTIONS environment variable before running the build command.
 
-#### Depending on your terminal, run one of the commands below:
+### Depending on your terminal, run one of the commands below:
 
-##### macOS, Linux and Windows Git Bash
+#### macOS, Linux and Windows Git Bash
 ```
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-##### Windows Command Prompt:
+#### Windows Command Prompt:
 ```
 set NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-##### Windows PowerShell:
+#### Windows PowerShell:
 ```
 $env:NODE_OPTIONS="--openssl-legacy-provider"
 ```
 Then run your build command
+______
