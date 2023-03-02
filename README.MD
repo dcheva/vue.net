@@ -52,3 +52,7 @@ $env:NODE_OPTIONS="--openssl-legacy-provider"
 ```
 Then run your build command
 ______
+
+### Disable JavaScript source code maps
+https://www.youtube.com/watch?v=1mTDNzgbYmI
+______
