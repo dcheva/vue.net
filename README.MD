@@ -56,3 +56,7 @@ ______
 ### Disable JavaScript source code maps
 https://www.youtube.com/watch?v=1mTDNzgbYmI
 ______
+
+### Install Redis MSI
+https://github.com/microsoftarchive/redis/releases
+______
