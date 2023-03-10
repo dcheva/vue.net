@@ -60,3 +60,9 @@ ______
 ### Install Redis MSI
 https://github.com/microsoftarchive/redis/releases
 ______
+### Install and run commands added
+```
+run install
+run
+```
+______

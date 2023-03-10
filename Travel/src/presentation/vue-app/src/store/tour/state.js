@@ -1,6 +1,7 @@
 const state = {
   lists: [],
-  loading: false
+  loading: false,
+  packagesOfSelectedCity: [],
 };
 
 export default state;
