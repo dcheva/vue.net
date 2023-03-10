@@ -4,3 +4,5 @@
 *bin/
 *obj/
 .fake
+Travel/src/presentation/Travel.WebApi/Logs
+Travel/src/presentation/Travel.WebApi/Logs/*
