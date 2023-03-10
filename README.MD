@@ -66,3 +66,9 @@ run install
 run
 ```
 ______
+
+## @TODO FIX
+```
+93:7    error    Type of the default value for 'bodyRequest' prop must be a function  vue/require-valid-default-prop
+```
+______
