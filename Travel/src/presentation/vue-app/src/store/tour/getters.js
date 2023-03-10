@@ -1,6 +1,5 @@
 const getters = {
-  lists: (state) => state.lists,
-  loading: (state) => state.loading,
-  packagesOfSelectedCity: (state) => state.packagesOfSelectedCity,
+  lists: state => state.lists,
+  loading: state => state.loading
 };
 export default getters;
