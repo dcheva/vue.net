@@ -1,0 +1,42 @@
+On branch chapter-15
+Your branch is ahead of 'origin/chapter-15' by 4 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   Travel/src/presentation/Travel.WebApi/Logs/log.db
+	modified:   Travel/src/presentation/Travel.WebApi/Startup.cs
+	modified:   Travel/src/presentation/vue-app/package-lock.json
+	modified:   Travel/src/presentation/vue-app/package.json
+	modified:   Travel/src/presentation/vue-app/src/App.vue
+	modified:   Travel/src/presentation/vue-app/src/api/api-v1-config.js
+	modified:   Travel/src/presentation/vue-app/src/api/api-v2-config.js
+	modified:   Travel/src/presentation/vue-app/src/components/NavigationBar.vue
+	modified:   Travel/src/presentation/vue-app/src/router/index.js
+	modified:   Travel/src/presentation/vue-app/src/store/index.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/actions.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/getters.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/index.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/mutations.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/services.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/state.js
+	modified:   Travel/src/presentation/vue-app/src/store/tour/types.js
+	modified:   Travel/src/presentation/vue-app/src/views/AdminDashboard/DefaultContent.vue
+	modified:   Travel/src/presentation/vue-app/src/views/AdminDashboard/TourLists.vue
+	modified:   Travel/src/presentation/vue-app/src/views/AdminDashboard/TourPackages.vue
+	modified:   Travel/src/presentation/vue-app/src/views/AdminDashboard/WeatherForecast.vue
+	modified:   Travel/src/presentation/vue-app/src/views/AdminDashboard/index.vue
+	modified:   Travel/src/presentation/vue-app/src/views/Main/Home.vue
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Travel/src/presentation/vue-app/src/components/AddTourListForm.vue
+	Travel/src/presentation/vue-app/src/components/AddTourPackageForm.vue
+	Travel/src/presentation/vue-app/src/components/TourListsCard.vue
+	Travel/src/presentation/vue-app/src/components/TourPackagesCard.vue
+	Travel/src/presentation/vue-app/src/components/UpdateTourPackageForm.vue
+	Travel/src/presentation/vue-app/src/helpers/
+	nodified.log
+
+no changes added to commit (use "git add" and/or "git commit -a")

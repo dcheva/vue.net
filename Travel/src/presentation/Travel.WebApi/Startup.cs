@@ -86,7 +86,7 @@ namespace Travel.WebApi
 
             app.UseRouting();
             app.UseMiddleware<JwtMiddleware>();
-            // app.UseAuthorization();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
